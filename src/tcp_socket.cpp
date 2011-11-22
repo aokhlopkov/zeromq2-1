@@ -200,7 +200,7 @@ int zmq::tcp_socket_t::write (const void *data, int size)
     if (nbytes == -1 && (errno == ECONNRESET || errno == EPIPE))
         return -1;
 
-    if (nbytes == 1)
+    if (nbytes == -1)
         fprintf (stderr, "E: unhandled error on send: %d/%s\n",
                  errno, strerror (errno));
     errno_assert (nbytes != -1);
@@ -222,8 +222,8 @@ int zmq::tcp_socket_t::read (void *data, int size)
     if (nbytes == -1 && (errno == ECONNRESET || errno == ECONNREFUSED ||
           errno == ETIMEDOUT || errno == EHOSTUNREACH))
         return -1;
-
-    if (nbytes == 1)
+        
+    if (nbytes == -1)
         fprintf (stderr, "E: unhandled error on recv: %d/%s\n",
                  errno, strerror (errno));
     errno_assert (nbytes != -1);
