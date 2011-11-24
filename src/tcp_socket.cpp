@@ -220,18 +220,9 @@ int zmq::tcp_socket_t::read (void *data, int size)
 
     //  Signalise peer failure.
     if (nbytes == -1 && (errno == ECONNRESET || errno == ECONNREFUSED ||
-          errno == ETIMEDOUT || errno == EHOSTUNREACH))
+          errno == ETIMEDOUT || errno == EHOSTUNREACH || errno == EINVAL))
         return -1;
-
-	if (nbytes == -1 && errno == EINVAL) {
-		if (data == NULL) fprintf(stderr, "Data is null");
-		fprintf(stderr, "Size = %d", size);
-		fprintf(stderr, "Socket = %d", s);
-	}
-        
-    if (nbytes == -1)
-        fprintf (stderr, "E: unhandled error on recv: %d/%s\n",
-                 errno, strerror (errno));
+	
     errno_assert (nbytes != -1);
 
     //  Orderly shutdown by the other peer.
