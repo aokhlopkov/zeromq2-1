@@ -306,6 +306,7 @@ int zmq::resolve_ip_hostname (sockaddr_storage *addr_, socklen_t *addr_len_,
     //  Find the ':' that separates hostname name from service.
     const char *delimiter = strchr (hostname_, ':');
     if (!delimiter) {
+		fprintf (stderr, "Unable to find ':' in address %s", hostname_);
         errno = EINVAL;
         return -1;
     }
@@ -333,6 +334,7 @@ int zmq::resolve_ip_hostname (sockaddr_storage *addr_, socklen_t *addr_len_,
     addrinfo *res;
     int rc = getaddrinfo (hostname.c_str (), service.c_str (), &req, &res);
     if (rc) {
+		fprintf (stderr, "getaddrinfo returned error, hostname = %s, errno = %s", hostname_, strerror (errno));
         errno = EINVAL;
         return -1;
     }
