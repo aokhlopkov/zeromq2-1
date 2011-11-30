@@ -26,9 +26,9 @@ if  [ $? -ne 0 ]; then
     exit 1
 fi
 
-command -v autoreconf >/dev/null 2>&1
+command -v autoreconf2.6x >/dev/null 2>&1
 if [ $? -ne 0 ]; then
-    echo "autogen.sh: error: could not find autoreconf.  autoconf and automake are required to run autogen.sh." 1>&2
+    echo "autogen.sh: error: could not find autoreconf2.6x.  autoconf and automake are required to run autogen.sh." 1>&2
     exit 1
 fi
 
@@ -38,8 +38,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-autoreconf --install --force --verbose -I config
+autoreconf2.6x --install --force --verbose -I config
 if [ $? -ne 0 ]; then
-    echo "autogen.sh: error: autoreconf exited with status $?" 1>&2
+    echo "autogen.sh: error: autoreconf2.6x exited with status $?" 1>&2
     exit 1
 fi
